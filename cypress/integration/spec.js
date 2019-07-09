@@ -12,7 +12,7 @@ describe('cy.api', () => {
     )
   })
 
-  it.only('yields API call result', () => {
+  it('yields API call result', () => {
     cy.api(
       {
         url: '/'
@@ -28,6 +28,22 @@ describe('cy.api', () => {
         'duration'
       ])
       expect(subject.body).to.equal('Hello World!')
+    })
+  })
+
+  it('yields result that has log messages', () => {
+    cy.api(
+      {
+        url: '/'
+      },
+      'hello world'
+    ).then(({ messages }) => {
+      expect(messages).to.deep.equal([
+        {
+          type: 'log',
+          message: 'processing GET /'
+        }
+      ])
     })
   })
 })

@@ -8,6 +8,9 @@ if (global.messages) {
   require('@bahmutov/all-logs/middleware/express')(app)
 }
 
-app.get('/', (req, res) => res.send('Hello World!'))
+app.get('/', (req, res) => {
+  console.log('processing %s %s', req.method, req.path)
+  res.send('Hello World!')
+})
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

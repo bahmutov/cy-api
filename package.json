@@ -37,6 +37,6 @@
     "cypress": "3"
   },
   "dependencies": {
-    "@bahmutov/all-logs": "file:../all-logs"
+    "@bahmutov/all-logs": "1.2.0"
   }
 }
