@@ -2,7 +2,11 @@
 
 const express = require('express')
 const app = express()
-const port = 3000
+const port = 3003
+
+if (global.messages) {
+  require('@bahmutov/all-logs/middleware/express')(app)
+}
 
 app.get('/', (req, res) => res.send('Hello World!'))
 

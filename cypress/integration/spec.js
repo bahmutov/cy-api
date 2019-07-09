@@ -2,24 +2,32 @@
 // https://on.cypress.io/intelligent-code-completion
 /// <reference types="Cypress" />
 
-context('Example Cypress TodoMVC test', () => {
-  beforeEach(() => {
-    // usually we recommend setting baseUrl in cypress.json
-    // but for simplicity of this example we just use it here
-    // https://on.cypress.io/visit
-    cy.visit('http://todomvc.com/examples/vue/')
+describe('cy.api', () => {
+  it('calls API method', () => {
+    cy.api(
+      {
+        url: '/'
+      },
+      'hello world'
+    )
   })
 
-  it('adds 2 todos', function () {
-    cy.get('.new-todo')
-      .type('learn testing{enter}')
-      .type('be cool{enter}')
-    cy.get('.todo-list li').should('have.length', 2)
+  it.only('yields API call result', () => {
+    cy.api(
+      {
+        url: '/'
+      },
+      'hello world'
+    ).then(subject => {
+      expect(subject).to.include.keys([
+        'status',
+        'statusText',
+        'body',
+        'requestHeaders',
+        'headers',
+        'duration'
+      ])
+      expect(subject.body).to.equal('Hello World!')
+    })
   })
-
-  // more examples
-  //
-  // https://github.com/cypress-io/cypress-example-todomvc
-  // https://github.com/cypress-io/cypress-example-kitchensink
-  // https://on.cypress.io/writing-your-first-test
 })

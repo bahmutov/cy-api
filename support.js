@@ -3,12 +3,17 @@
 Cypress.Commands.add('api', (options, name) => {
   const doc = cy.state('document')
   const container = doc.querySelector('.container')
+  const messagesEndpoint = Cypress._.get(
+    Cypress.env(),
+    'cyApi.messages',
+    '/__messages__'
+  )
 
   // first reset any messages on the server
   // TODO: handle errors
   cy.request({
     method: 'POST',
-    url: '/__messages',
+    url: messagesEndpoint,
     log: false
   })
 
@@ -33,10 +38,10 @@ Cypress.Commands.add('api', (options, name) => {
   cy.request({
     ...options,
     log: false
-  }).then(({ duration, body, status, headers }) => {
+  }).then(({ duration, body, status, headers, requestHeaders, statusText }) => {
     // TODO: handle errors
     cy.request({
-      url: '/__messages',
+      url: messagesEndpoint,
       log: false
     }).then(res => {
       const messages = Cypress._.get(res, 'body.messages', [])
@@ -71,6 +76,17 @@ Cypress.Commands.add('api', (options, name) => {
           }
         }
       })
+
+      return {
+        messages,
+        // original response information
+        duration,
+        body,
+        status,
+        statusText,
+        headers,
+        requestHeaders
+      }
     })
   })
 })
