@@ -1,0 +1,12 @@
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+workflows:
+  build:
+    jobs:
+      - cypress/run:
+          no-workspace: true
+          start: npm start
+          wait-on: 'http://localhost:3003'
+          post-steps:
+            - run: npm run semantic-release

@@ -1,6 +1,6 @@
 {
   "name": "@bahmutov/cy-api",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "Custom command cy.api",
   "main": "index.js",
   "files": [
@@ -11,11 +11,12 @@
     "cy:open": "cypress open",
     "start": "node -r @bahmutov/all-logs ./server",
     "e2e": "start-test 3003",
-    "dev": "start-test 3003 cy:open"
+    "dev": "start-test 3003 cy:open",
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bahmutov/cy-api.git"
+    "url": "https://github.com/bahmutov/cy-api.git"
   },
   "keywords": [
     "cypress",
@@ -31,12 +32,16 @@
   "devDependencies": {
     "cypress": "3.3.2",
     "express": "4.17.1",
-    "start-server-and-test": "1.9.1"
+    "start-server-and-test": "1.9.1",
+    "semantic-release": "^15.13.18"
   },
   "peerDependencies": {
     "cypress": "3"
   },
   "dependencies": {
     "@bahmutov/all-logs": "1.2.0"
+  },
+  "publishConfig": {
+    "access": "restricted"
   }
 }
