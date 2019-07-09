@@ -7,7 +7,8 @@
     "support.js"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./server"
   },
   "repository": {
     "type": "git",
@@ -25,7 +26,8 @@
   },
   "homepage": "https://github.com/bahmutov/cy-api#readme",
   "devDependencies": {
-    "cypress": "3.3.2"
+    "cypress": "3.3.2",
+    "express": "4.17.1"
   },
   "peerDependencies": {
     "cypress": "3"
