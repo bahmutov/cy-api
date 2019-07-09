@@ -38,7 +38,9 @@ describe('cy.api', () => {
       },
       'hello world'
     ).then(({ messages }) => {
-      expect(messages).to.deep.equal([
+      // filter only "console.log" messages
+      const logs = Cypress._.filter(messages, { type: 'log' })
+      expect(logs).to.deep.equal([
         {
           type: 'log',
           message: 'processing GET /'
