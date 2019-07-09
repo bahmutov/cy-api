@@ -1,0 +1,33 @@
+{
+  "name": "@bahmutov/cy-api",
+  "version": "1.0.0",
+  "description": "Custom command cy.api",
+  "main": "index.js",
+  "files": [
+    "support.js"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bahmutov/cy-api.git"
+  },
+  "keywords": [
+    "cypress",
+    "cypress-io",
+    "cy-api"
+  ],
+  "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com> (https://glebbahmutov.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bahmutov/cy-api/issues"
+  },
+  "homepage": "https://github.com/bahmutov/cy-api#readme",
+  "devDependencies": {
+    "cypress": "3.3.2"
+  },
+  "peerDependencies": {
+    "cypress": "3"
+  }
+}
