@@ -5,6 +5,10 @@ workflows:
   build:
     jobs:
       - cypress/run:
+          # to install private NPM modules, let's use same NPM token
+          # we are using to publish new releases
+          pre-steps:
+            - run: 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
           no-workspace: true
           start: npm start
           wait-on: 'http://localhost:3003'
