@@ -3,7 +3,7 @@
 /// <reference types="Cypress" />
 
 describe('cy.api', () => {
-  it('calls API method', () => {
+  it.only('calls API method', () => {
     cy.api(
       {
         url: '/'

@@ -1,5 +1,9 @@
 /// <reference types="cypress" />
 
+import {Filters} from './src/Filters'
+const React = require('react')
+const ReactDOM = require('react-dom')
+
 // shortcuts to a few Lodash methods
 const {get, filter, map, uniq} = Cypress._
 
@@ -67,25 +71,58 @@ Cypress.Commands.add('api', (options, name) => {
         container.innerHTML +=
           '<hr>\n' +
           '<div style="text-align: left">\n' +
-          `<b>Server logs</b>`
+          `<b>Server logs</b>\n<div id="filters"></div>\n`
 
         if (types.length) {
-          container.innerHTML +=
-            types.map(type => `\n<input type="checkbox" name="${type}" value="${type}"> ${type}`).join('')
-            + '<br/>\n'
+          // container.innerHTML += `
+          //   <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+          //   <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+          // `
+          // container.innerHTML +=
+          //   types.map(type => `\n<input type="checkbox" name="${type}" value="${type}"> ${type}`).join('')
+          //   + '<br/>\n'
+          // const filtersEl = doc.getElementById('filters')
+          // const filterComponent = <div>{
+          //   types.map(type =>
+          //     <LogTypeFilter checked={false} label={type} key={type}
+          //       onChange={} />
+          //   )
+          // }
+          // </div>
+          // trying to start live React component in the
+          // application under test
+          // using https://glebbahmutov.com/blog/cypress-jump/
+          // ReactDOM.render(<Filters types={types} />, filtersEl)
+          // const onChange = () => {
+          //   console.log('changing')
+          //   debugger
+          // }
+
+          // container.innerHTML = `
+          //   <div>
+          //     <label>
+          //       <input id="filter" type="checkbox" checked="true" value="console" name="console" />
+          //     </label>
+          //     <span> Console</span>
+          //   </div>
+          // `
+          // const filterEl = doc.getElementById('filter')
+          // // hmm, cannot attach event listeners - seems their are disabled
+          // // by the test runner?
+          // filterEl.addEventListener('change', onChange)
         }
-        if (namespaces.length) {
-          container.innerHTML += '\n'
-            + namespaces.map(n => {
-              if (!n.namespaces.length) {
-                return ''
-              }
-              return n.namespaces.map(namespace => {
-                return `\n<input type="checkbox" name="${n.type}.${namespace}"
-                  value="${n.type}.${namespace}"> ${n.type}.${namespace}`
-              }).join('')
-            }).join('') + '<br/>\n'
-        }
+        // if (namespaces.length) {
+        //   container.innerHTML += '\n'
+        //     + namespaces.map(n => {
+        //       if (!n.namespaces.length) {
+        //         return ''
+        //       }
+        //       return n.namespaces.map(namespace => {
+        //         return `\n<input type="checkbox" name="${n.type}.${namespace}"
+        //           value="${n.type}.${namespace}"> ${n.type}.${namespace}`
+        //       }).join('')
+        //     }).join('') + '<br/>\n'
+        // }
 
         container.innerHTML +=
           '\n<pre style="text-align: left">' +
