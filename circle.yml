@@ -13,4 +13,7 @@ workflows:
           start: npm start
           wait-on: 'http://localhost:3003'
           post-steps:
+            # catch accidental "it.only" tests
+            - run: npm run stop-only
+            # publish new NPM version if necessary
             - run: npm run semantic-release

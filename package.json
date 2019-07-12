@@ -12,7 +12,9 @@
     "start": "node -r @bahmutov/all-logs ./server",
     "e2e": "start-test 3003",
     "dev": "start-test 3003 cy:open",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "stop-only": "stop-only --folder cypress",
+    "warn-only": "stop-only --warn --folder cypress"
   },
   "repository": {
     "type": "git",
@@ -32,8 +34,10 @@
   "devDependencies": {
     "cypress": "3.4.0",
     "express": "4.17.1",
+    "husky": "3.0.0",
+    "semantic-release": "^15.13.18",
     "start-server-and-test": "1.9.1",
-    "semantic-release": "^15.13.18"
+    "stop-only": "3.0.1"
   },
   "peerDependencies": {
     "cypress": "3"
@@ -44,5 +48,11 @@
   },
   "publishConfig": {
     "access": "restricted"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run warn-only",
+      "pre-push": "npm run stop-only && npm t"
+    }
   }
 }
