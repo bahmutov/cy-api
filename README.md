@@ -4,3 +4,7 @@
 ## Examples
 
 - [bahmutov/server-logs-example](https://github.com/bahmutov/server-logs-example)
+
+## More info
+
+- Read ["Capture all the logs"](https://glebbahmutov.com/blog/capture-all-the-logs/)
