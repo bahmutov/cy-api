@@ -3,7 +3,7 @@
 /// <reference types="Cypress" />
 
 describe('cy.api', () => {
-  it.only('calls API method', () => {
+  it('calls API method', () => {
     cy.api(
       {
         url: '/'
@@ -39,17 +39,16 @@ describe('cy.api', () => {
       'hello world'
     ).then(({ messages }) => {
       // filter only "console.log" messages
-      const logs = Cypress._.filter(messages, { type: 'console', namespace: 'log' })
-      expect(logs, '1 console.log message')
-        .to.have.length(1)
-      expect(logs[0])
-        .to.deep.include(
-        {
-          type: 'console',
-          namespace: 'log',
-          message: 'processing GET /'
-        }
-      )
+      const logs = Cypress._.filter(messages, {
+        type: 'console',
+        namespace: 'log'
+      })
+      expect(logs, '1 console.log message').to.have.length(1)
+      expect(logs[0]).to.deep.include({
+        type: 'console',
+        namespace: 'log',
+        message: 'processing GET /'
+      })
     })
   })
 })

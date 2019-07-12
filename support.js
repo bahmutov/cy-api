@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 // shortcuts to a few Lodash methods
-const {get, filter, map, uniq} = Cypress._
+const { get, filter, map, uniq } = Cypress._
 
 Cypress.Commands.add('api', (options, name) => {
   const doc = cy.state('document')
@@ -55,7 +55,9 @@ Cypress.Commands.add('api', (options, name) => {
         const namespaces = types.map(type => {
           return {
             type,
-            namespaces: uniq(map(filter(messages, {type}), 'namespace')).sort()
+            namespaces: uniq(
+              map(filter(messages, { type }), 'namespace')
+            ).sort()
           }
         })
         // namespaces will be like
@@ -65,31 +67,43 @@ Cypress.Commands.add('api', (options, name) => {
         // ]
 
         container.innerHTML +=
-          '<hr>\n' +
-          '<div style="text-align: left">\n' +
-          `<b>Server logs</b>`
+          '<hr>\n' + '<div style="text-align: left">\n' + `<b>Server logs</b>`
 
         if (types.length) {
           container.innerHTML +=
-            types.map(type => `\n<input type="checkbox" name="${type}" value="${type}"> ${type}`).join('')
-            + '<br/>\n'
+            types
+              .map(
+                type =>
+                  `\n<input type="checkbox" name="${type}" value="${type}"> ${type}`
+              )
+              .join('') + '<br/>\n'
         }
         if (namespaces.length) {
-          container.innerHTML += '\n'
-            + namespaces.map(n => {
-              if (!n.namespaces.length) {
-                return ''
-              }
-              return n.namespaces.map(namespace => {
-                return `\n<input type="checkbox" name="${n.type}.${namespace}"
+          container.innerHTML +=
+            '\n' +
+            namespaces
+              .map(n => {
+                if (!n.namespaces.length) {
+                  return ''
+                }
+                return n.namespaces
+                  .map(namespace => {
+                    return `\n<input type="checkbox" name="${
+                      n.type
+                    }.${namespace}"
                   value="${n.type}.${namespace}"> ${n.type}.${namespace}`
-              }).join('')
-            }).join('') + '<br/>\n'
+                  })
+                  .join('')
+              })
+              .join('') +
+            '<br/>\n'
         }
 
         container.innerHTML +=
           '\n<pre style="text-align: left; max-height: 25em; overflow-y: scroll;">' +
-          messages.map(m => `${m.type} ${m.namespace}: ${m.message}`).join('<br/>') +
+          messages
+            .map(m => `${m.type} ${m.namespace}: ${m.message}`)
+            .join('<br/>') +
           '\n</pre></div>'
       }
 
