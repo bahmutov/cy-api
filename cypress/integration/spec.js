@@ -18,8 +18,8 @@ describe('cy.api', () => {
         url: '/'
       },
       'hello world'
-    ).then(subject => {
-      expect(subject).to.include.keys([
+    ).then(response => {
+      expect(response).to.include.keys([
         'status',
         'statusText',
         'body',
@@ -27,7 +27,7 @@ describe('cy.api', () => {
         'headers',
         'duration'
       ])
-      expect(subject.body).to.equal('Hello World!')
+      expect(response.body).to.equal('Hello World!')
     })
   })
 
