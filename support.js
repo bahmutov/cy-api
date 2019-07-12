@@ -88,7 +88,7 @@ Cypress.Commands.add('api', (options, name) => {
         }
 
         container.innerHTML +=
-          '\n<pre style="text-align: left">' +
+          '\n<pre style="text-align: left; max-height: 25em; overflow-y: scroll;">' +
           messages.map(m => `${m.type} ${m.namespace}: ${m.message}`).join('<br/>') +
           '\n</pre></div>'
       }
