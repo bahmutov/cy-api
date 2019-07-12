@@ -1,5 +1,8 @@
 /// <reference types="cypress" />
 
+// shortcuts to a few Lodash methods
+const {get, filter, map, uniq} = Cypress._
+
 Cypress.Commands.add('api', (options, name) => {
   const doc = cy.state('document')
   const container = doc.querySelector('.container')
@@ -44,14 +47,49 @@ Cypress.Commands.add('api', (options, name) => {
       url: messagesEndpoint,
       log: false
     }).then(res => {
-      const messages = Cypress._.get(res, 'body.messages', [])
+      const messages = get(res, 'body.messages', [])
       if (messages.length) {
+        const types = uniq(map(messages, 'type')).sort()
+        // types will be like
+        // ['console', 'debug', 'util.debuglog']
+        const namespaces = types.map(type => {
+          return {
+            type,
+            namespaces: uniq(map(filter(messages, {type}), 'namespace')).sort()
+          }
+        })
+        // namespaces will be like
+        // [
+        //  {type: 'console', namespaces: ['log']},
+        //  {type: 'util.debuglog', namespaces: ['HTTP']}
+        // ]
+
         container.innerHTML +=
           '<hr>\n' +
           '<div style="text-align: left">\n' +
-          `<b>Server logs</b>\n` +
-          '<pre>' +
-          messages.map(m => `${m.type}: ${m.message}`).join('<br/>') +
+          `<b>Server logs</b>`
+
+        if (types.length) {
+          container.innerHTML +=
+            types.map(type => `\n<input type="checkbox" name="${type}" value="${type}"> ${type}`).join('')
+            + '<br/>\n'
+        }
+        if (namespaces.length) {
+          container.innerHTML += '\n'
+            + namespaces.map(n => {
+              if (!n.namespaces.length) {
+                return ''
+              }
+              return n.namespaces.map(namespace => {
+                return `\n<input type="checkbox" name="${n.type}.${namespace}"
+                  value="${n.type}.${namespace}"> ${n.type}.${namespace}`
+              }).join('')
+            }).join('') + '<br/>\n'
+        }
+
+        container.innerHTML +=
+          '\n<pre style="text-align: left">' +
+          messages.map(m => `${m.type} ${m.namespace}: ${m.message}`).join('<br/>') +
           '\n</pre></div>'
       }
 
