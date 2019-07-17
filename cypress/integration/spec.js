@@ -1,6 +1,5 @@
-// enables intelligent code completion for Cypress commands
-// https://on.cypress.io/intelligent-code-completion
-/// <reference types="Cypress" />
+// loads definition for the custom "cy.api" command
+/// <reference path="../../index.d.ts" />
 
 describe('cy.api', () => {
   it('calls API method', () => {
@@ -17,7 +16,7 @@ describe('cy.api', () => {
       {
         url: '/'
       },
-      'hello world'
+      'my hello world'
     ).then(response => {
       expect(response).to.include.keys([
         'status',
