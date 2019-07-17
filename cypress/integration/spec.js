@@ -11,6 +11,13 @@ describe('cy.api', () => {
     )
   })
 
+  it('calls several times', () => {
+    const options = { url: '/' }
+    cy.api(options, 'first')
+    cy.api(options, 'second')
+    cy.api(options, 'third')
+  })
+
   it('yields API call result', () => {
     cy.api(
       {

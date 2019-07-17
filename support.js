@@ -3,8 +3,15 @@
 // shortcuts to a few Lodash methods
 const { get, filter, map, uniq } = Cypress._
 
-Cypress.Commands.add('api', (options, name) => {
+let firstApiRequest
+
+Cypress.on('test:before:run', () => {
+  firstApiRequest = true
+})
+
+Cypress.Commands.add('api', (options, name = 'api') => {
   const doc = cy.state('document')
+  const win = cy.state('window')
   const container = doc.querySelector('.container')
   const messagesEndpoint = Cypress._.get(
     Cypress.env(),
@@ -23,7 +30,7 @@ Cypress.Commands.add('api', (options, name) => {
   // should we log the message before a request
   // in case it fails?
   Cypress.log({
-    name: name || 'api',
+    name,
     message: options.url,
     consoleProps () {
       return {
@@ -31,7 +38,22 @@ Cypress.Commands.add('api', (options, name) => {
       }
     }
   })
-  container.innerHTML =
+
+  let topMargin
+  if (firstApiRequest) {
+    // remove existing content from the application frame
+    container.innerHTML = ''
+    firstApiRequest = false
+    topMargin = '0'
+  } else {
+    container.innerHTML += '<br><hr>\n'
+    topMargin = '1em'
+  }
+
+  container.innerHTML +=
+    // should we use custom class and insert class style?
+    '<div style="">\n' +
+    `<h1 style="text-align: left; margin: ${topMargin} 0 1em; font-weight: 600">Cy-api: ${name}</h1>\n` +
     '<div style="text-align: left">\n' +
     '<b>Request:</b>\n' +
     '<pre>' +
@@ -110,12 +132,11 @@ Cypress.Commands.add('api', (options, name) => {
       // render the response object
       // TODO render headers?
       container.innerHTML +=
-        '<hr>\n' +
-        '<div style="text-align: left">\n' +
+        '<div style="text-align: left; margin-top: 1em">\n' +
         `<b>Response: ${status} ${duration}ms</b>\n` +
         '<pre>' +
         JSON.stringify(body, null, 2) +
-        '\n</pre></div>'
+        '\n</pre></div></div>'
 
       // log the response
       Cypress.log({
@@ -128,6 +149,8 @@ Cypress.Commands.add('api', (options, name) => {
           }
         }
       })
+
+      win.scrollTo(0, doc.body.scrollHeight)
 
       return {
         messages,
