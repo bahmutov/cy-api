@@ -20,11 +20,11 @@ Cypress.Commands.add('api', (options, name = 'api') => {
   )
 
   // first reset any messages on the server
-  // TODO: handle errors
   cy.request({
     method: 'POST',
     url: messagesEndpoint,
-    log: false
+    log: false,
+    failOnStatusCode: false // maybe there is no endpoint with logs
   })
 
   // should we log the message before a request
@@ -64,10 +64,10 @@ Cypress.Commands.add('api', (options, name = 'api') => {
     ...options,
     log: false
   }).then(({ duration, body, status, headers, requestHeaders, statusText }) => {
-    // TODO: handle errors
     cy.request({
       url: messagesEndpoint,
-      log: false
+      log: false,
+      failOnStatusCode: false // maybe there is no endpoint with logs
     }).then(res => {
       const messages = get(res, 'body.messages', [])
       if (messages.length) {
