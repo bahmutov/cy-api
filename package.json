@@ -37,7 +37,7 @@
     "cypress": "3.4.0",
     "express": "4.17.1",
     "husky": "3.0.0",
-    "semantic-release": "^15.13.18",
+    "semantic-release": "15.13.18",
     "start-server-and-test": "1.9.1",
     "stop-only": "3.0.1"
   },
