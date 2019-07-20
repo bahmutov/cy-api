@@ -40,14 +40,13 @@
     "semantic-release": "15.13.18",
     "start-server-and-test": "1.9.1",
     "stop-only": "3.0.1",
-    "@bahmutov/all-logs": "1.5.2"
+    "@bahmutov/all-logs": "1.5.2",
+    "debug": "4.1.1"
   },
   "peerDependencies": {
     "cypress": "3"
   },
-  "dependencies": {
-    "debug": "4.1.1"
-  },
+  "dependencies": {},
   "publishConfig": {
     "access": "public"
   },
