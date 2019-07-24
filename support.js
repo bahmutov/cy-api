@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import { html } from 'common-tags'
+const { html } = require('common-tags')
 
 //
 // implementation of the custom command "cy.api"
