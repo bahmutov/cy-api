@@ -1,5 +1,12 @@
 /// <reference types="cypress" />
 
+import { html } from 'common-tags'
+
+//
+// implementation of the custom command "cy.api"
+// https://github.com/bahmutov/cy-api
+//
+
 // shortcuts to a few Lodash methods
 const { get, filter, map, uniq } = Cypress._
 
@@ -42,9 +49,30 @@ Cypress.Commands.add('api', (options, name = 'api') => {
   let topMargin
   if (firstApiRequest) {
     // remove existing content from the application frame
-    container.innerHTML = ''
     firstApiRequest = false
     topMargin = '0'
+    container.innerHTML = html`
+      <style>
+        .cy-api {
+          text-align: left;
+        }
+        .cy-api-request {
+          font-weight: 600;
+        }
+        .cy-api-logs-messages {
+          text-align: left;
+          max-height: 25em;
+          overflow-y: scroll;
+          background-color: lightyellow;
+          padding: 4px;
+          border-radius: 4px;
+        }
+        .cy-api-response {
+          text-align: left;
+          margin-top: 1em;
+        }
+      </style>
+    `
   } else {
     container.innerHTML += '<br><hr>\n'
     topMargin = '1em'
@@ -52,9 +80,9 @@ Cypress.Commands.add('api', (options, name = 'api') => {
 
   container.innerHTML +=
     // should we use custom class and insert class style?
-    '<div style="">\n' +
-    `<h1 style="text-align: left; margin: ${topMargin} 0 1em; font-weight: 600">Cy-api: ${name}</h1>\n` +
-    '<div style="text-align: left">\n' +
+    '<div class="cy-api">\n' +
+    `<h1 class="cy-api-request" style="margin: ${topMargin} 0 1em">Cy-api: ${name}</h1>\n` +
+    '<div>\n' +
     '<b>Request:</b>\n' +
     '<pre>' +
     JSON.stringify(options, null, 2) +
@@ -122,7 +150,7 @@ Cypress.Commands.add('api', (options, name = 'api') => {
         }
 
         container.innerHTML +=
-          '\n<pre style="text-align: left; max-height: 25em; overflow-y: scroll;">' +
+          '\n<pre class="cy-api-logs-messages">' +
           messages
             .map(m => `${m.type} ${m.namespace}: ${m.message}`)
             .join('<br/>') +
@@ -132,7 +160,7 @@ Cypress.Commands.add('api', (options, name = 'api') => {
       // render the response object
       // TODO render headers?
       container.innerHTML +=
-        '<div style="text-align: left; margin-top: 1em">\n' +
+        '<div class="cy-api-response">\n' +
         `<b>Response: ${status} ${duration}ms</b>\n` +
         '<pre>' +
         JSON.stringify(body, null, 2) +

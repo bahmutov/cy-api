@@ -46,7 +46,9 @@
   "peerDependencies": {
     "cypress": "3"
   },
-  "dependencies": {},
+  "dependencies": {
+    "common-tags": "1.8.0"
+  },
   "publishConfig": {
     "access": "public"
   },
