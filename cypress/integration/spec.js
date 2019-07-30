@@ -44,6 +44,7 @@ describe('cy.api', () => {
       },
       'hello world'
     ).then(({ messages }) => {
+      console.table(messages)
       // filter only "console.log" messages
       const logs = Cypress._.filter(messages, {
         type: 'console',
