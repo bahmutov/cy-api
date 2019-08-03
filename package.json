@@ -39,7 +39,7 @@
     "husky": "3.0.2",
     "semantic-release": "15.13.18",
     "start-server-and-test": "1.9.1",
-    "stop-only": "3.0.1",
+    "stop-only": "3.1.0",
     "@bahmutov/all-logs": "1.8.1",
     "debug": "4.1.1"
   },
