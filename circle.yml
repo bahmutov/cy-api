@@ -14,15 +14,23 @@ workflows:
           requires:
             - Install 📦
           install-command: echo 'Nothing to install in this job'
-          # to install private NPM modules, let's use same NPM token
-          # we are using to publish new releases
-          # pre-steps:
-          #  - run: 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
           no-workspace: true
           start: npm start
           wait-on: 'http://localhost:3003'
-          post-steps:
-            # catch accidental "it.only" tests
-            - run: npm run stop-only
-            # publish new NPM version if necessary
-            - run: npm run semantic-release
+
+      - cypress/run:
+          name: Firefox test 🦊🧪
+          executor: cypress/browsers-chrome78-ff70
+          requires:
+            - Install 📦
+          install-command: echo 'Nothing to install in this job'
+          no-workspace: true
+          start: npm start
+          wait-on: 'http://localhost:3003'
+          browser: firefox
+
+          # post-steps:
+          #   # catch accidental "it.only" tests
+          #   - run: npm run stop-only
+          #   # publish new NPM version if necessary
+          #   - run: npm run semantic-release
