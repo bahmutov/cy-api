@@ -4,11 +4,15 @@ orbs:
 workflows:
   build:
     jobs:
+      - cypress/install:
+          name: Install 📦
       - cypress/run:
+          requires:
+            - Install 📦
           # to install private NPM modules, let's use same NPM token
           # we are using to publish new releases
-          pre-steps:
-            - run: 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
+          # pre-steps:
+          #  - run: 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
           no-workspace: true
           start: npm start
           wait-on: 'http://localhost:3003'
