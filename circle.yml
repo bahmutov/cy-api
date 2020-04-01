@@ -6,9 +6,14 @@ workflows:
     jobs:
       - cypress/install:
           name: Install 📦
+          post-steps:
+            - run: npx cypress info
+
       - cypress/run:
+          name: Electron test 🧪
           requires:
             - Install 📦
+          install-command: echo 'Nothing to install in this job'
           # to install private NPM modules, let's use same NPM token
           # we are using to publish new releases
           # pre-steps:
