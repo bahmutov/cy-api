@@ -7,7 +7,13 @@ workflows:
       - cypress/install:
           name: Install 📦
           post-steps:
-            - run: npx cypress info
+            - run:
+                name: Show info 📺
+                command: npx cypress info
+            # catch accidental "it.only" tests
+            - run:
+                name: Catch accidental "it.only" 🖐
+                command: npm run stop-only
 
       - cypress/run:
           name: Electron test 🧪
@@ -29,8 +35,14 @@ workflows:
           wait-on: 'http://localhost:3003'
           browser: firefox
 
-          # post-steps:
-          #   # catch accidental "it.only" tests
-          #   - run: npm run stop-only
-          #   # publish new NPM version if necessary
-          #   - run: npm run semantic-release
+      - cypress/run:
+          name: NPM release 🚀
+          requires:
+            - Install 📦
+            - Electron test 🧪
+            - Firefox test 🦊🧪
+          install-command: echo 'Nothing to install in this job'
+          no-workspace: true
+          # instead of "cypress run" do NPM release 😁
+          command: npm run semantic-release
+
