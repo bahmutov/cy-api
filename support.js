@@ -19,7 +19,12 @@ Cypress.on('test:before:run', () => {
 Cypress.Commands.add('api', (options, name = 'api') => {
   const doc = cy.state('document')
   const win = cy.state('window')
-  const container = doc.querySelector('.container')
+  let container = doc.querySelector('.container')
+  if (!container) {
+    container = doc.createElement('div')
+    container.className = 'container'
+    doc.body.appendChild(container)
+  }
   const messagesEndpoint = Cypress._.get(
     Cypress.env(),
     'cyApi.messages',
