@@ -7,7 +7,7 @@ workflows:
       # first, run a single job to install dependencies and Cypress
       # and perform a few more small steps like linting
       - cypress/install:
-          name: Install 📦
+          name: Install
           post-steps:
             - run:
                 name: Show info 📺
@@ -20,9 +20,9 @@ workflows:
       # reuse the workspace from the install job
       # to run end-to-end tests in Electron browser
       - cypress/run:
-          name: Electron test 🧪
+          name: Electron test
           requires:
-            - Install 📦
+            - Install
           install-command: echo 'Nothing to install in this job'
           # to run tests, we need to start the web application
           start: npm start
@@ -32,10 +32,10 @@ workflows:
       # reuse the workspace from the install job
       # to run end-to-end tests in Firefox browser
       - cypress/run:
-          name: Firefox test 🦊🧪
+          name: Firefox test
           executor: cypress/browsers-chrome78-ff70
           requires:
-            - Install 📦
+            - Install
           install-command: echo 'Nothing to install in this job'
           # to run tests, we need to start the web application
           start: npm start
@@ -46,11 +46,11 @@ workflows:
 
       # wait for all jobs to finish and possible run NPM release
       - cypress/run:
-          name: NPM release 🚀
+          name: NPM release
           requires:
-            - Install 📦
-            - Electron test 🧪
-            - Firefox test 🦊🧪
+            - Install
+            - Electron test
+            - Firefox test
           # nothing to install - cypress/install job does it
           # and nothing to pass to the next job
           install-command: echo 'Nothing to install in this job'
