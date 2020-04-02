@@ -4,6 +4,8 @@ orbs:
 workflows:
   build:
     jobs:
+      # first, run a single job to install dependencies and Cypress
+      # and perform a few more small steps like linting
       - cypress/install:
           name: Install 📦
           post-steps:
@@ -15,32 +17,42 @@ workflows:
                 name: Catch accidental "it.only" 🖐
                 command: npm run stop-only
 
+      # reuse the workspace from the install job
+      # to run end-to-end tests in Electron browser
       - cypress/run:
           name: Electron test 🧪
           requires:
             - Install 📦
           install-command: echo 'Nothing to install in this job'
-          no-workspace: true
+          # to run tests, we need to start the web application
           start: npm start
           wait-on: 'http://localhost:3003'
+          no-workspace: true
 
+      # reuse the workspace from the install job
+      # to run end-to-end tests in Firefox browser
       - cypress/run:
           name: Firefox test 🦊🧪
           executor: cypress/browsers-chrome78-ff70
           requires:
             - Install 📦
           install-command: echo 'Nothing to install in this job'
-          no-workspace: true
+          # to run tests, we need to start the web application
           start: npm start
           wait-on: 'http://localhost:3003'
+          # run tests using Firefox browser pre-installed in the executor image
           browser: firefox
+          no-workspace: true
 
+      # wait for all jobs to finish and possible run NPM release
       - cypress/run:
           name: NPM release 🚀
           requires:
             - Install 📦
             - Electron test 🧪
             - Firefox test 🦊🧪
+          # nothing to install - cypress/install job does it
+          # and nothing to pass to the next job
           install-command: echo 'Nothing to install in this job'
           no-workspace: true
           # instead of "cypress run" do NPM release 😁
