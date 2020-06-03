@@ -28,7 +28,7 @@ Cypress.Commands.add('api', (options, name = 'api') => {
   const messagesEndpoint = Cypress._.get(
     Cypress.env(),
     'cyApi.messages',
-    '/__messages__'
+    `${options.url ?? '' }/__messages__`
   )
 
   // first reset any messages on the server
