@@ -43,6 +43,7 @@ With this line, you should have Intelligent Code Completion working in most IDEs
 
 ## More info
 
+- Read [Black box API testing with server logs](https://glebbahmutov.com/blog/api-testing-with-sever-logs/)
 - Read ["Capture all the logs"](https://glebbahmutov.com/blog/capture-all-the-logs/) and [@bahmutov/all-logs][all-logs] module.
 
 [all-logs]: https://github.com/bahmutov/all-logs
