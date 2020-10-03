@@ -76,6 +76,10 @@ Cypress.Commands.add('api', (options, name = 'api') => {
           text-align: left;
           margin-top: 1em;
         }
+        .cy-api-pre {
+          word-break: break-all;
+          white-space: normal;
+        }
       </style>
     `
   } else {
@@ -89,7 +93,7 @@ Cypress.Commands.add('api', (options, name = 'api') => {
     `<h1 class="cy-api-request" style="margin: ${topMargin} 0 1em">Cy-api: ${name}</h1>\n` +
     '<div>\n' +
     '<b>Request:</b>\n' +
-    '<pre>' +
+    '<pre class="cy-api-pre">' +
     JSON.stringify(options, null, 2) +
     '\n</pre></div>'
 
