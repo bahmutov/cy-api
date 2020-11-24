@@ -34,17 +34,17 @@
   },
   "homepage": "https://github.com/bahmutov/cy-api#readme",
   "devDependencies": {
-    "cypress": "4.12.1",
+    "cypress": "6.0.0",
     "express": "4.17.1",
     "husky": "3.1.0",
-    "semantic-release": "15.14.0",
-    "start-server-and-test": "1.11.5",
+    "semantic-release": "17.2.3",
+    "start-server-and-test": "1.11.6",
     "stop-only": "3.1.0",
     "@bahmutov/all-logs": "1.8.1",
-    "debug": "4.2.0"
+    "debug": "4.3.1"
   },
   "peerDependencies": {
-    "cypress": "3 || 4"
+    "cypress": ">=3"
   },
   "dependencies": {
     "common-tags": "1.8.0"
