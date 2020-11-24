@@ -44,7 +44,7 @@
     "debug": "4.3.1"
   },
   "peerDependencies": {
-    "cypress": "3 || 4 || 6"
+    "cypress": "3 || 4 || 5 || 6"
   },
   "dependencies": {
     "common-tags": "1.8.0"

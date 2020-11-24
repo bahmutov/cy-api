@@ -12,5 +12,20 @@
   "schedule": [
     "every weekend"
   ],
-  "masterIssue": true
+  "masterIssue": true,
+  "packageRules": [
+    {
+      "packagePatterns": [
+        "*"
+      ],
+      "excludePackagePatterns": [
+        "common-tags",
+        "cypress",
+        "semantic-release",
+        "start-server-and-test",
+        "@bahmutov/all-logs"
+      ],
+      "enabled": false
+    }
+  ]
 }
