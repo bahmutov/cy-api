@@ -34,7 +34,7 @@
   },
   "homepage": "https://github.com/bahmutov/cy-api#readme",
   "devDependencies": {
-    "cypress": "6.4.0",
+    "cypress": "6.5.0",
     "express": "4.17.1",
     "husky": "3.1.0",
     "semantic-release": "17.3.9",
