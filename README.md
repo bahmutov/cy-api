@@ -26,6 +26,10 @@ import '@bahmutov/cy-api/support'
 
 This will add a new command `cy.api` for making API requests.
 
+## Configuration
+
+If you want to disable messages calls : `export CYPRESS_API_MESSAGES=false`
+
 ## TypeScript
 
 The definition for `cy.api` command is in [index.d.ts](index.d.ts) file. If you are using JavaScript, include the following line in our spec files

@@ -58,4 +58,46 @@ describe('cy.api', () => {
       })
     })
   })
+
+  it('yields result that has log messages with API_MESSAGES true', {
+    env: {
+      API_MESSAGES: true
+    }
+  }, () => {
+    cy.api(
+      {
+        url: '/'
+      },
+      'hello world'
+    ).then(({ messages }) => {
+      console.table(messages)
+      // filter only "console.log" messages
+      const logs = Cypress._.filter(messages, {
+        type: 'console',
+        namespace: 'log'
+      })
+      expect(logs, '1 console.log message').to.have.length(1)
+      expect(logs[0]).to.deep.include({
+        type: 'console',
+        namespace: 'log',
+        message: 'processing GET /'
+      })
+    })
+  })
+
+  it('no log messages with API_MESSAGES false', {
+    env: {
+      API_MESSAGES: false
+    }
+  }, () => {
+    cy.api(
+      {
+        url: '/'
+      },
+      'hello world'
+    ).then(({ messages }) => {
+      console.table(messages)
+      expect(messages).to.have.length(0)
+    })
+  })
 })
