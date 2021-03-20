@@ -1,4 +1,5 @@
-# @bahmutov/cy-api [![renovate-app badge][renovate-badge]][renovate-app] [![CircleCI](https://circleci.com/gh/bahmutov/cy-api/tree/master.svg?style=svg&circle-token=b9f64878ead36e2da438a0563cc4566269aa452b)](https://circleci.com/gh/bahmutov/cy-api/tree/master)
+# @bahmutov/cy-api
+[![renovate-app badge][renovate-badge]][renovate-app] [![CircleCI](https://circleci.com/gh/bahmutov/cy-api/tree/master.svg?style=svg&circle-token=b9f64878ead36e2da438a0563cc4566269aa452b)](https://circleci.com/gh/bahmutov/cy-api/tree/master) ![cypress version](https://img.shields.io/badge/cypress-6.6.0-brightgreen)
 > Cypress custom command "cy.api" for end-to-end API testing
 
 This command makes HTTP requests to external servers, then renders the input and output where the web application usually is in the Cypress Test Runner. If there are server-side logs using [@bahmutov/all-logs][all-logs], this command fetches them and renders too. Here is typical output:
@@ -25,6 +26,10 @@ import '@bahmutov/cy-api/support'
 ```
 
 This will add a new command `cy.api` for making API requests.
+
+## Configuration
+
+If you want to disable messages calls use an environment variable `CYPRESS_API_MESSAGE=false`.
 
 ## TypeScript
 
