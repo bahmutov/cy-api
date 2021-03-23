@@ -18,6 +18,8 @@ Cypress.on('test:before:run', () => {
 
 Cypress.Commands.add('api', (options, name = 'api') => {
   const hasApiMessages = Cypress.env('API_MESSAGES') === false ? false : true
+  let normalizedTypes = []
+  let normalizedNamespaces = []
   const doc = cy.state('document')
   const win = cy.state('window')
   let container = doc.querySelector('.container')
@@ -134,13 +136,12 @@ Cypress.Commands.add('api', (options, name = 'api') => {
             '<hr>\n' + '<div style="text-align: left">\n' + `<b>Server logs</b>`
 
           if (types.length) {
-            container.innerHTML +=
-              types
-                .map(
-                  type =>
-                    `\n<input type="checkbox" name="${type}" value="${type}"> ${type}`
-                )
-                .join('') + '<br/>\n'
+            for (const type of types) {
+              const normalizedType = normalize(type)
+              normalizedTypes.push(normalizedType)
+              container.innerHTML += `\n<input type="checkbox" id="check-${normalizedType}" checked name="${type}" value="${normalizedType}"> ${type}`
+            }
+            container.innerHTML += '<br/>\n'
           }
           if (namespaces.length) {
             container.innerHTML +=
@@ -152,9 +153,11 @@ Cypress.Commands.add('api', (options, name = 'api') => {
                   }
                   return n.namespaces
                     .map(namespace => {
-                      return `\n<input type="checkbox" name="${n.type
-                        }.${namespace}"
-                  value="${n.type}.${namespace}"> ${n.type}.${namespace}`
+                      const normalizedNamespace = normalize(n.type, namespace)
+                      normalizedNamespaces.push(normalizedNamespace)
+                      return `\n<input type="checkbox" name="${n.type}.${namespace}"
+                        id="check-${normalizedNamespace}" checked
+                        value="${normalizedNamespace}"> ${n.type}.${namespace}`
                     })
                     .join('')
                 })
@@ -165,8 +168,8 @@ Cypress.Commands.add('api', (options, name = 'api') => {
           container.innerHTML +=
             '\n<pre class="cy-api-logs-messages">' +
             messages
-              .map(m => `${m.type} ${m.namespace}: ${m.message}`)
-              .join('<br/>') +
+              .map(m => `<div class="${normalize(m.type)} ${normalize(m.type, m.namespace)}">${m.type} ${m.namespace}: ${m.message}</div>`)
+              .join('') +
             '\n</pre></div>'
         }
       }).then(() => cy.wrap({ messages, duration, body, status, headers, requestHeaders, statusText }))
@@ -195,6 +198,14 @@ Cypress.Commands.add('api', (options, name = 'api') => {
       }
     })
 
+    for (const type of normalizedTypes) {
+      addOnClickFilter(doc, type)
+    }
+
+    for (const namespace of normalizedNamespaces) {
+      addOnClickFilter(doc, namespace)
+    }
+
     win.scrollTo(0, doc.body.scrollHeight)
 
     return {
@@ -209,3 +220,23 @@ Cypress.Commands.add('api', (options, name = 'api') => {
     }
   })
 })
+
+const normalize = (type, namespace = null) => {
+  let normalized = type.replace('.', '-')
+  if (namespace) {
+    namespace = namespace.replace('.', '-')
+    normalized += `-${namespace}`
+  }
+  return normalized
+}
+
+const addOnClickFilter = (doc, filterId) => {
+  doc.getElementById(`check-${filterId}`).onclick = () => {
+    const checkbox = doc.getElementById(`check-${filterId}`)
+    const elements = doc.getElementsByClassName(checkbox.value)
+    for (let log of elements) {
+      log.style.display = checkbox.checked ? 'block' : 'none'
+    }
+  }
+}
+
