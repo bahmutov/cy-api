@@ -28,6 +28,7 @@ workflows:
           start: npm start
           wait-on: 'http://localhost:3003'
           no-workspace: true
+          store_artifacts: true
 
       # reuse the workspace from the install job
       # to run end-to-end tests in Firefox browser
@@ -43,6 +44,7 @@ workflows:
           # run tests using Firefox browser pre-installed in the executor image
           browser: firefox
           no-workspace: true
+          store_artifacts: true
 
       # wait for all jobs to finish and possible run NPM release
       - cypress/run:
