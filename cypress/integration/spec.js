@@ -59,6 +59,7 @@ describe('cy.api', () => {
     })
   })
 
+
   it('yields result that has log messages with API_MESSAGES true', {
     env: {
       API_MESSAGES: true
@@ -100,4 +101,5 @@ describe('cy.api', () => {
       expect(messages).to.have.length(0)
     })
   })
+
 })
