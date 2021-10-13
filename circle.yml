@@ -34,7 +34,7 @@ workflows:
       # to run end-to-end tests in Firefox browser
       - cypress/run:
           name: Firefox test
-          executor: cypress/browsers-chrome78-ff70
+          executor: cypress/browsers-chrome91-ff89
           requires:
             - Install
           install-command: echo 'Nothing to install in this job'
