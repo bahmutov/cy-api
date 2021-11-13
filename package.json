@@ -47,7 +47,7 @@
     "cypress": ">=3"
   },
   "dependencies": {
-    "common-tags": "1.8.0"
+    "common-tags": "1.8.1"
   },
   "publishConfig": {
     "access": "public"
