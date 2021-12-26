@@ -28,7 +28,7 @@ Cypress.Commands.add('api', (options, name = 'api') => {
     container.className = 'container'
     doc.body.appendChild(container)
   }
-  const messagesEndpoint = Cypress._.get(
+  const messagesEndpoint = get(
     Cypress.env(),
     'cyApi.messages',
     '/__messages__'
