@@ -11,6 +11,8 @@ if (global.messages) {
   require('@bahmutov/all-logs/middleware/express')(app)
 }
 
+app.use(express.static('server-public'));
+
 const answer = 'Hello World!'
 
 app.get('/', (req, res) => {
