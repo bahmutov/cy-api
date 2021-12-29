@@ -39,7 +39,7 @@ Cypress.Commands.add('api', (options: Partial<Cypress.RequestOptions>, name = 'a
   let normalizedTypes: string[] = []
   let normalizedNamespaces: string[] = []
   var { container, win, doc } = getContainer();
-  const messagesEndpoint = Cypress._.get(
+  const messagesEndpoint = get(
     Cypress.env(),
     'cyApi.messages',
     '/__messages__'

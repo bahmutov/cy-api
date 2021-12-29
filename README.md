@@ -29,7 +29,7 @@ This will add a new command `cy.api` for making API requests.
 
 ## Configuration
 
-If you want to disable messages calls use an environment variable `CYPRESS_API_MESSAGE=false`.
+If you want to disable messages calls use an environment variable `CYPRESS_API_MESSAGES=false`.
 
 ## TypeScript
 
