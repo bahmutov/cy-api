@@ -17,6 +17,14 @@ interface Messages {
 }
 
 declare namespace Cypress {
+
+    interface TestConfigOverrides {
+      /**
+       * Display cy.api result
+       */
+       apiDisplayRequest?: boolean
+    }
+
     interface Chainable {
       /**
        * Custom command to execute HTTP request to the server

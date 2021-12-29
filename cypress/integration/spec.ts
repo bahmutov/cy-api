@@ -1,5 +1,5 @@
 // loads definition for the custom "cy.api" command
-/// <reference path="../../src/index.d.ts" />
+/// <reference path="../../dist/types.d.ts" />
 
 describe('cy.api', () => {
   it('calls API method', () => {
