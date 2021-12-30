@@ -1,2 +1,2 @@
 import * as support from "./support";
-export { support };
+export default support;
