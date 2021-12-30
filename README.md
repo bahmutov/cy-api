@@ -22,7 +22,7 @@ Add the following line to your Cypress support file
 
 ```js
 // usually cypress/support/index.js
-import '@bahmutov/cy-api/support'
+import '@bahmutov/cy-api'
 ```
 
 This will add a new command `cy.api` for making API requests.
@@ -31,16 +31,32 @@ This will add a new command `cy.api` for making API requests.
 
 If you want to disable messages calls use an environment variable `CYPRESS_API_MESSAGES=false`.
 
-## TypeScript
-
-The definition for `cy.api` command is in [index.d.ts](index.d.ts) file. If you are using JavaScript, include the following line in our spec files
+By default `cy.api` print response in the browser. To have the same behaviour as `cy.request` and use `cy.visit` normaly, you need to desactivate `apiDisplayRequest` :
 
 ```js
-// cypress/integration/my-spec.js
-/// <reference types="@bahmutov/cy-api" />
+it('my test without displaying request', { apiDisplayRequest: false }, () => {
+    cy.api(
+      {
+        url: '/',
+      }
+    )
+})
 ```
 
-With this line, you should have Intelligent Code Completion working in most IDEs and the TypeScript compiler should understand the `cy.api` command.
+## TypeScript
+
+If your using TypeScript with Cypress, you can add type in your `tsconfig.json`
+
+```json
+{
+    "compilerOptions": {
+        "types": [
+            "cypress",
+            "@bahmutov/cy-api"
+        ]
+    }
+}
+```
 
 ## Examples
 
