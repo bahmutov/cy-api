@@ -56,6 +56,7 @@ workflows:
       # wait for all jobs to finish and possible run NPM release
       - cypress/run:
           name: NPM release
+          executor: with-ff
           requires:
             - Install
             - Electron test
