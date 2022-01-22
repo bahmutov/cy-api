@@ -37,7 +37,7 @@
     "cypress": "9.2.1",
     "express": "4.17.1",
     "husky": "3.1.0",
-    "semantic-release": "18.0.1",
+    "semantic-release": "19.0.2",
     "start-server-and-test": "1.14.0",
     "stop-only": "3.1.0",
     "@bahmutov/all-logs": "1.8.1",
