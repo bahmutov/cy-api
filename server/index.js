@@ -36,4 +36,9 @@ app.get('/logs', (req, res) => {
   console.log('finish %s %s', req.method, req.path)
 })
 
+app.get('/json', (req, res) => {
+  const answerJSON = { string: 'string', int: 1234, object: { array: [1, 2] } }
+  res.send(answerJSON)
+})
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
