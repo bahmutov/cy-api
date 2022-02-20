@@ -6,6 +6,7 @@
             "dom"
         ],
         "types": [
+            "node",
             "cypress"
         ],
         "typeRoots": [

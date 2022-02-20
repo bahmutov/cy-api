@@ -1,6 +1,8 @@
 /// <reference types="cypress" />
 
 import { html } from 'common-tags';
+import hljs from 'highlight.js';
+const pack = require('../package.json');
 
 //
 // implementation of the custom command "cy.api"
@@ -76,6 +78,7 @@ Cypress.Commands.add('api', (options: Partial<Cypress.RequestOptions>, name = 'a
       // remove existing content from the application frame
       firstApiRequest = false
       container.innerHTML = html`
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/${pack['dependencies']['highlight.js']}/styles/vs.min.css">
       <style>
       .container { background-color: rgb(238, 238, 238); border-radius: 6px; padding: 30px 15px; text-align: center; }
         .cy-api {
@@ -100,6 +103,9 @@ Cypress.Commands.add('api', (options: Partial<Cypress.RequestOptions>, name = 'a
           word-break: break-all;
           white-space: normal;
         }
+        .hljs {
+          background: rgb(238, 238, 238);
+        }
       </style>
     `
     } else {
@@ -115,8 +121,8 @@ Cypress.Commands.add('api', (options: Partial<Cypress.RequestOptions>, name = 'a
       `<h1 class="cy-api-request" style="margin: ${topMargin} 0 1em">Cy-api: ${name}</h1>\n` +
       '<div>\n' +
       '<b>Request:</b>\n' +
-      '<pre class="cy-api-pre">' +
-      JSON.stringify(toPrint(options), null, 2) +
+      '<pre class="cy-api-pre hljs">' +
+      formatRequest(options) +
       '\n</pre></div>'
   }
 
@@ -134,8 +140,8 @@ Cypress.Commands.add('api', (options: Partial<Cypress.RequestOptions>, name = 'a
       container.innerHTML +=
         '<div class="cy-api-response">\n' +
         `<b>Response: ${status} ${duration}ms</b>\n` +
-        '<pre>' +
-        JSON.stringify(body, null, 2) +
+        '<pre class="hljs">' +
+        formatResponse(body, headers) +
         '\n</pre></div></div>'
     }
 
@@ -284,7 +290,11 @@ const getContainer = () => {
   return { container, win, doc };
 }
 
-const toPrint = (options: Partial<Cypress.RequestOptions>) => {
+const formatJSon = (jsonObject: object) => {
+  return hljs.highlight(JSON.stringify(jsonObject, null, 4), { language: 'json' }).value
+}
+
+const formatRequest = (options: Partial<Cypress.RequestOptions>) => {
   const showCredentials = Cypress.env('API_SHOW_CREDENTIALS');
   if (!showCredentials) {
     let auth = options?.auth as { username?: string, password?: string };
@@ -293,5 +303,13 @@ const toPrint = (options: Partial<Cypress.RequestOptions>) => {
       options.auth = auth;
     }
   }
-  return options;
+  return formatJSon(options);
+}
+
+const formatResponse = (body: object, headers: { [key: string]: string | string[] }) => {
+  if (headers['content-type'].includes('application/json')) {
+    return formatJSon(body);
+  } else {
+    return body;
+  }
 }

@@ -35,6 +35,7 @@
   },
   "homepage": "https://github.com/bahmutov/cy-api#readme",
   "devDependencies": {
+    "@types/node": "17.0.18",
     "cypress": "9.5.0",
     "express": "4.17.1",
     "husky": "3.1.0",
@@ -50,7 +51,8 @@
   },
   "dependencies": {
     "@types/common-tags": "1.8.1",
-    "common-tags": "1.8.2"
+    "common-tags": "1.8.2",
+    "highlight.js": "11.4.0"
   },
   "publishConfig": {
     "access": "public"
