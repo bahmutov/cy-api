@@ -36,11 +36,11 @@
   "homepage": "https://github.com/bahmutov/cy-api#readme",
   "devDependencies": {
     "@types/node": "17.0.18",
-    "cypress": "6.9.1",
+    "cypress": "9.5.0",
     "express": "4.17.1",
     "husky": "3.1.0",
     "typescript": "4.5.4",
-    "semantic-release": "17.4.7",
+    "semantic-release": "19.0.2",
     "start-server-and-test": "1.14.0",
     "stop-only": "3.1.0",
     "@bahmutov/all-logs": "1.8.1",

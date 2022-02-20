@@ -46,6 +46,6 @@ declare namespace Cypress {
         })
       ```
        */
-      api (options: Partial<Cypress.RequestOptions>, name?: string): Chainable<Response & Messages>
+      api<T> (options: Partial<Cypress.RequestOptions>, name?: string): Chainable<Response<T> & Messages>
     }
   }

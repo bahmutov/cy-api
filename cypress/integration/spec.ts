@@ -117,8 +117,41 @@ describe('cy.api', () => {
       },
       'hello world'
     ).then(({ messages }) => {
-      console.table(messages)
       expect(messages).to.have.length(0)
+    })
+  })
+
+  it('mask credentials', () => {
+    cy.api(
+      {
+        url: '/',
+        auth: {
+          username: 'login',
+          password: 'password'
+        }
+      }
+    ).then(response => {
+      expect(response.status).eq(200)
+      cy.contains('"password": "*****"')
+    })
+  })
+
+  it('show credentials', {
+    env: {
+      API_SHOW_CREDENTIALS: true
+    }
+  }, () => {
+    cy.api(
+      {
+        url: '/',
+        auth: {
+          username: 'login',
+          password: 'password'
+        }
+      }
+    ).then(response => {
+      expect(response.status).eq(200)
+      cy.contains('"password": "password"')
     })
   })
 

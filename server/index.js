@@ -41,4 +41,10 @@ app.get('/json', (req, res) => {
   res.send(answerJSON)
 })
 
+app.get('/xml', (req, res) => {
+  const answerXML = "<xml>XML</xml>"
+  res.set('Content-Type', 'text/xml');
+  res.send(answerXML)
+})
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

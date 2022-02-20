@@ -122,7 +122,7 @@ Cypress.Commands.add('api', (options: Partial<Cypress.RequestOptions>, name = 'a
       '<div>\n' +
       '<b>Request:</b>\n' +
       '<pre class="cy-api-pre hljs">' +
-      formatJSon(options) +
+      formatRequest(options) +
       '\n</pre></div>'
   }
 
@@ -141,7 +141,7 @@ Cypress.Commands.add('api', (options: Partial<Cypress.RequestOptions>, name = 'a
         '<div class="cy-api-response">\n' +
         `<b>Response: ${status} ${duration}ms</b>\n` +
         '<pre class="hljs">' +
-        formatJSon(body) +
+        formatResponse(body, headers) +
         '\n</pre></div></div>'
     }
 
@@ -292,4 +292,24 @@ const getContainer = () => {
 
 const formatJSon = (jsonObject: object) => {
   return hljs.highlight(JSON.stringify(jsonObject, null, 4), { language: 'json' }).value
+}
+
+const formatRequest = (options: Partial<Cypress.RequestOptions>) => {
+  const showCredentials = Cypress.env('API_SHOW_CREDENTIALS');
+  if (!showCredentials) {
+    let auth = options?.auth as { username?: string, password?: string };
+    if (auth?.password) {
+      auth.password = '*****';
+      options.auth = auth;
+    }
+  }
+  return formatJSon(options);
+}
+
+const formatResponse = (body: object, headers: { [key: string]: string | string[] }) => {
+  if (headers['content-type'].includes('application/json')) {
+    return formatJSon(body);
+  } else {
+    return body;
+  }
 }

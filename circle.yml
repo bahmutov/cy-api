@@ -1,6 +1,13 @@
 version: 2.1
 orbs:
+  # https://github.com/cypress-io/circleci-orb
   cypress: cypress-io/cypress@1
+
+executors:
+  with-ff:
+    docker:
+      - image: 'cypress/browsers:node16.13.0-chrome95-ff94'
+
 workflows:
   build:
     jobs:
@@ -35,7 +42,7 @@ workflows:
       # to run end-to-end tests in Firefox browser
       - cypress/run:
           name: Firefox test
-          executor: cypress/browsers-chrome78-ff70
+          executor: with-ff
           requires:
             - Install
           install-command: echo 'Nothing to install in this job'
@@ -50,6 +57,7 @@ workflows:
       # wait for all jobs to finish and possible run NPM release
       - cypress/run:
           name: NPM release
+          executor: with-ff
           requires:
             - Install
             - Electron test
