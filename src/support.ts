@@ -67,15 +67,12 @@ Cypress.Commands.add('api', (options: Partial<Cypress.RequestOptions>, name = 'a
     }
   })
 
-  console.log(container.innerHTML);
-
   let topMargin = '0';
   if (firstApiRequest) {
     container.innerHTML = ''
   }
   if (apiOptions.displayRequest) {
     if (firstApiRequest) {
-      cy.log('FIRST')
       // remove existing content from the application frame
       firstApiRequest = false
       container.innerHTML = html`
@@ -112,7 +109,6 @@ Cypress.Commands.add('api', (options: Partial<Cypress.RequestOptions>, name = 'a
   }
 
   if (apiOptions.displayRequest) {
-    cy.log('DISPLAY REQ')
     container.innerHTML +=
       // should we use custom class and insert class style?
       '<div class="cy-api">\n' +
@@ -280,7 +276,6 @@ const getContainer = () => {
   const win: Window = cy.state('window');
   let container = doc.querySelector<HTMLElement>('.container');
   if (!container) {
-    console.log('NEW')
     container = doc.createElement('div');
     container.className = 'container';
     doc.body.appendChild(container);
