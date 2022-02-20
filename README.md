@@ -29,7 +29,10 @@ This will add a new command `cy.api` for making API requests.
 
 ## Configuration
 
-If you want to disable messages calls use an environment variable `CYPRESS_API_MESSAGES=false`.
+| var env | default value | description |
+|---------|---------------|-------------|
+| CYPRESS_API_MESSAGES | true | Show and make call to api server logs |
+| CYPRESS_API_SHOW_CREDENTIALS | false | Show authentication password |
 
 By default `cy.api` print response in the browser. To have the same behaviour as `cy.request` and use `cy.visit` normaly, you need to desactivate `apiDisplayRequest` :
 
