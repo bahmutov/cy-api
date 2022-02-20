@@ -285,10 +285,13 @@ const getContainer = () => {
 }
 
 const toPrint = (options: Partial<Cypress.RequestOptions>) => {
-  let auth = options?.auth as { username?: string, password?: string };
-  if (auth?.password) {
-    auth.password = '*****';
-    options.auth = auth;
+  const showCredentials = Cypress.env('API_SHOW_CREDENTIALS');
+  if (!showCredentials) {
+    let auth = options?.auth as { username?: string, password?: string };
+    if (auth?.password) {
+      auth.password = '*****';
+      options.auth = auth;
+    }
   }
   return options;
 }

@@ -136,4 +136,23 @@ describe('cy.api', () => {
     })
   })
 
+  it('show credentials', {
+    env: {
+      API_SHOW_CREDENTIALS: true
+    }
+  }, () => {
+    cy.api(
+      {
+        url: '/',
+        auth: {
+          username: 'login',
+          password: 'password'
+        }
+      }
+    ).then(response => {
+      expect(response.status).eq(200)
+      cy.contains('"password": "password"')
+    })
+  })
+
 })
