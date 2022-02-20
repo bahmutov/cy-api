@@ -116,7 +116,7 @@ Cypress.Commands.add('api', (options: Partial<Cypress.RequestOptions>, name = 'a
       '<div>\n' +
       '<b>Request:</b>\n' +
       '<pre class="cy-api-pre">' +
-      JSON.stringify(options, null, 2) +
+      JSON.stringify(toPrint(options), null, 2) +
       '\n</pre></div>'
   }
 
@@ -282,4 +282,13 @@ const getContainer = () => {
   }
   container.className = 'container';
   return { container, win, doc };
+}
+
+const toPrint = (options: Partial<Cypress.RequestOptions>) => {
+  let auth = options?.auth as { username?: string, password?: string };
+  if (auth?.password) {
+    auth.password = '*****';
+    options.auth = auth;
+  }
+  return options;
 }
