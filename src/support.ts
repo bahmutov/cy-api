@@ -99,10 +99,6 @@ Cypress.Commands.add('api', (options: Partial<Cypress.RequestOptions>, name = 'a
           text-align: left;
           margin-top: 1em;
         }
-        .cy-api-pre {
-          word-break: break-all;
-          white-space: normal;
-        }
         .hljs {
           background: rgb(238, 238, 238);
         }
@@ -121,7 +117,7 @@ Cypress.Commands.add('api', (options: Partial<Cypress.RequestOptions>, name = 'a
       `<h1 class="cy-api-request" style="margin: ${topMargin} 0 1em">Cy-api: ${name}</h1>\n` +
       '<div>\n' +
       '<b>Request:</b>\n' +
-      '<pre class="cy-api-pre hljs">' +
+      '<pre class="hljs">' +
       formatRequest(options) +
       '\n</pre></div>'
   }

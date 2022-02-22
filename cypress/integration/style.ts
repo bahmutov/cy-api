@@ -2,7 +2,11 @@ describe('Response format / styling', () => {
 
     it('json response, theme color vs', () => {
         cy.api({
-            url: '/json'
+            url: '/json',
+            auth: {
+                username: 'toto',
+                password: 'tutu'
+            }
         }).then(response => {
             expect(response.body).to.be.deep.eq({
                 "string": "string",
@@ -17,10 +21,10 @@ describe('Response format / styling', () => {
         })
         cy.log('request colors')
         // red
-        cy.get('.cy-api-pre > .hljs-attr')
+        cy.get('.cy-api > div > .hljs > :nth-child(2)')
             .should('have.css', 'color', 'rgb(255, 0, 0)');
         // brown
-        cy.get('.cy-api-pre > .hljs-string')
+        cy.get('.cy-api > div > .hljs > :nth-child(4)')
             .should('have.css', 'color', 'rgb(163, 21, 21)');
         cy.log('response colors')
         // red
