@@ -48,4 +48,10 @@ describe('Response format / styling', () => {
         cy.get('xml').should('have.css', 'color', 'rgb(0, 0, 0)');
     })
 
+
+    it('handles spaces', () => {
+        cy.api({
+            url: '/json-white-space'
+        })
+    })
 })

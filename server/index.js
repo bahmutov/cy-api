@@ -41,6 +41,12 @@ app.get('/json', (req, res) => {
   res.send(answerJSON)
 })
 
+// https://github.com/bahmutov/cy-api/issues/156
+app.get('/json-white-space', (req, res) => {
+  const answerJSON =  { "forwardTo": " " }
+  res.send(answerJSON)
+})
+
 app.get('/xml', (req, res) => {
   const answerXML = "<xml>XML</xml>"
   res.set('Content-Type', 'text/xml');
