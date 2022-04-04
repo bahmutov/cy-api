@@ -292,7 +292,8 @@ const formatJSon = (jsonObject: object) => {
 
 const formatRequest = (options: Partial<Cypress.RequestOptions>) => {
   const showCredentials = Cypress.env('API_SHOW_CREDENTIALS');
-  const hasPassword = options?.auth?.password;
+  const auth = options?.auth as { username?: string, password?: string }
+  const hasPassword = auth?.password;
   if (!showCredentials && hasPassword) {
     return formatJSon({
       ...options,
