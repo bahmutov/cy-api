@@ -34,7 +34,7 @@ This will add a new command `cy.api` for making API requests.
 | CYPRESS_API_MESSAGES | true | Show and make call to api server logs |
 | CYPRESS_API_SHOW_CREDENTIALS | false | Show authentication password |
 
-By default `cy.api` print response in the browser. To have the same behaviour as `cy.request` and use `cy.visit` normaly, you need to desactivate `apiDisplayRequest` :
+By default `cy.api` print response in the browser. To have the same behaviour as `cy.request` and use `cy.visit` normally, you need to desactivate `apiDisplayRequest` :
 
 ```js
 it('my test without displaying request', { apiDisplayRequest: false }, () => {
