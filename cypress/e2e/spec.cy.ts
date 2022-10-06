@@ -121,7 +121,23 @@ describe('cy.api', () => {
     })
   })
 
-  it('mask credentials', () => {
+
+
+  it('mask credentials bearer', () => {
+    cy.api(
+      {
+        url: '/',
+        auth: {
+          bearer: 'bearer'
+        }
+      }
+    ).then(response => {
+      expect(response.status).eq(200)
+      cy.contains('"bearer": "*****"')
+    })
+  })
+
+  it('mask credentials password', () => {
     cy.api(
       {
         url: '/',
@@ -136,6 +152,23 @@ describe('cy.api', () => {
     })
   })
 
+  it('mask credentials bearer and password', () => {
+    cy.api(
+      {
+        url: '/',
+        auth: {
+          bearer: 'bearer',
+          username: 'login',
+          password: 'password'
+        }
+      }
+    ).then(response => {
+      expect(response.status).eq(200)
+      cy.contains('"bearer": "*****"')
+      cy.contains('"password": "*****"')
+    })
+  })
+
   it('show credentials', {
     env: {
       API_SHOW_CREDENTIALS: true
@@ -145,12 +178,14 @@ describe('cy.api', () => {
       {
         url: '/',
         auth: {
+          bearer: 'bearer',
           username: 'login',
           password: 'password'
         }
       }
     ).then(response => {
       expect(response.status).eq(200)
+      cy.contains('"bearer": "bearer"')
       cy.contains('"password": "password"')
     })
   })
