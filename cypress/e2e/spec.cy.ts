@@ -121,8 +121,6 @@ describe('cy.api', () => {
     })
   })
 
-
-
   it('mask credentials bearer', () => {
     cy.api(
       {
