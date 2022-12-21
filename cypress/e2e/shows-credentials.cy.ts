@@ -24,4 +24,28 @@ describe('cy.api', () => {
       })
     },
   )
+
+  it(
+    'show very long credentials',
+    {
+      env: {
+        API_SHOW_CREDENTIALS: true,
+      },
+    },
+    () => {
+      cy.api({
+        url: '/',
+        auth: {
+          bearer: Cypress._.repeat('bearer_', 30),
+          username: 'login',
+          password: 'password',
+        },
+      }).then((response) => {
+        expect(response.status).eq(200)
+        cy.contains('"bearer": "bearer_bearer_')
+        cy.contains('"password": "password"')
+        // you should be able to scroll the container horizontally
+      })
+    },
+  )
 })
