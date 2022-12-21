@@ -341,6 +341,19 @@ const getContainer = () => {
   const win: Window = cy.state('window')
   let container = doc.querySelector<HTMLElement>('.container')
   if (!container) {
+    // clear the body of the application's iframe
+    // in Cypress v12
+    const innerContainer = doc.querySelector<HTMLElement>('.inner-container')
+    if (innerContainer) {
+      innerContainer.remove()
+    }
+    // and Cypress v12 styles
+    const styles = doc.querySelector<HTMLElement>('style')
+    if (styles) {
+      styles.remove()
+    }
+
+    // and create our own container
     container = doc.createElement('div')
     container.className = 'container'
     doc.body.appendChild(container)
