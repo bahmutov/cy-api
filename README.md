@@ -1,5 +1,5 @@
 # @bahmutov/cy-api
-[![renovate-app badge][renovate-badge]][renovate-app] [![CircleCI](https://circleci.com/gh/bahmutov/cy-api/tree/master.svg?style=svg&circle-token=b9f64878ead36e2da438a0563cc4566269aa452b)](https://circleci.com/gh/bahmutov/cy-api/tree/master) ![cypress version](https://img.shields.io/badge/cypress-12.2.0-brightgreen)
+[![renovate-app badge][renovate-badge]][renovate-app] [![CircleCI](https://circleci.com/gh/bahmutov/cy-api/tree/master.svg?style=svg&circle-token=b9f64878ead36e2da438a0563cc4566269aa452b)](https://circleci.com/gh/bahmutov/cy-api/tree/master) ![cypress version](https://img.shields.io/badge/cypress-12.4.1-brightgreen)
 > Cypress custom command "cy.api" for end-to-end API testing
 
 This command makes HTTP requests to external servers, then renders the input and output where the web application usually is in the Cypress Test Runner. If there are server-side logs using [@bahmutov/all-logs][all-logs], this command fetches them and renders too. Here is typical output:
