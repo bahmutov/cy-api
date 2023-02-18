@@ -37,7 +37,7 @@
   "devDependencies": {
     "@bahmutov/all-logs": "1.8.1",
     "@types/node": "17.0.18",
-    "cypress": "12.5.1",
+    "cypress": "12.6.0",
     "debug": "4.3.1",
     "express": "4.17.1",
     "husky": "3.1.0",
