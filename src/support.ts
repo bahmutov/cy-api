@@ -377,34 +377,35 @@ const formatRequest = (options: Partial<Cypress.RequestOptions>) => {
   }
   const hasPassword = auth?.password
   const hasBearer = auth?.bearer
+  const { failOnStatusCode, ...restOptions } = options;
 
   if (!showCredentials && hasPassword && hasBearer) {
     return formatJSon({
-      ...options,
+      ...restOptions,
       auth: {
-        ...options.auth,
+        ...restOptions.auth,
         bearer: '*****',
         password: '*****',
       },
     })
   } else if (!showCredentials && hasPassword) {
     return formatJSon({
-      ...options,
+      ...restOptions,
       auth: {
-        ...options.auth,
+        ...restOptions.auth,
         password: '*****',
       },
     })
   } else if (!showCredentials && hasBearer) {
     return formatJSon({
-      ...options,
+      ...restOptions,
       auth: {
-        ...options.auth,
+        ...restOptions.auth,
         bearer: '*****',
       },
     })
   }
-  return formatJSon(options)
+  return formatJSon(restOptions)
 }
 
 const formatResponse = (
