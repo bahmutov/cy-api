@@ -3,7 +3,7 @@
 
 describe('show non RequestOptions', () => {
 
-  it("show non RequestOptions if env var `API_SHOW_GENUINE_REQUEST_OPTIONS_ONLY` is not set", () => {
+  it("shows non RequestOptions if env var `API_SHOW_GENUINE_REQUEST_OPTIONS_ONLY` is not set", () => {
     cy.api({
       url: '/',
       log: false,
@@ -30,11 +30,11 @@ describe('show non RequestOptions', () => {
       retryOnStatusCodeFailure: false,
       retryOnNetworkFailure: false,
     })
-    cy.get('.cy-api > div > .hljs').first()
+    cy.get('.cy-api > div > .hljs')
       .should("contain.text", `"log": false`)
       .should("contain.text", `"failOnStatusCode": false`)
-      .should("contain.text", `"failOnStatusCode": false`)
-      .should("contain.text", `"failOnStatusCode": false`)
+      .should("contain.text", `"retryOnStatusCodeFailure": false`)
+      .should("contain.text", `"retryOnNetworkFailure": false`)
 
     cy.api({
       url: '/',
@@ -46,8 +46,8 @@ describe('show non RequestOptions', () => {
     cy.get('.cy-api > div > .hljs').last()
       .should("contain.text", `"log": true`)
       .and("contain.text", `"failOnStatusCode": true`)
-      .and("contain.text", `"failOnStatusCode": true`)
-      .and("contain.text", `"failOnStatusCode": true`)
+      .and("contain.text", `"retryOnStatusCodeFailure": true`)
+      .and("contain.text", `"retryOnNetworkFailure": true`)
   })
 
 })
