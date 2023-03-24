@@ -1,7 +1,7 @@
 // loads definition for the custom "cy.api" command
 /// <reference path="../../dist/types.d.ts" />
 
-describe('hides-failOnStatusCode', () => {
+describe('hide non RequestOptions', () => {
 
 
   it("hides non RequestOptions if env var `API_SHOW_GENUINE_REQUEST_OPTIONS_ONLY` is set to true", {
