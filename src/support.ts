@@ -370,7 +370,7 @@ const formatJSon = (jsonObject: object) => {
 
 const formatRequest = (options: Partial<Cypress.RequestOptions>) => {
   const showCredentials = Cypress.env('API_SHOW_CREDENTIALS')
-  const showFailOnStatusCode = Cypress.env('API_SHOW_FAILONSTATUSCODE') === false ? false : true
+  const showGenuineRequestOptionsOnly = Cypress.env('API_SHOW_GENUINE_REQUEST_OPTIONS_ONLY')
   const auth = options?.auth as {
     username?: string
     password?: string
@@ -378,8 +378,23 @@ const formatRequest = (options: Partial<Cypress.RequestOptions>) => {
   }
   const hasPassword = auth?.password
   const hasBearer = auth?.bearer
-  const { failOnStatusCode, ...restOptions } = options;
-  const updatedOptions = { ...restOptions, ...(showFailOnStatusCode ? { failOnStatusCode } : {}) };
+
+  const genuineRequestOptions: Partial<Cypress.RequestOptions> = {
+    auth: options?.auth || {},
+    body: options?.body,
+    encoding: options?.encoding,
+    followRedirect: options?.followRedirect,
+    form: options?.form,
+    gzip: options?.gzip,
+    headers: options?.headers || {},
+    method: options?.method,
+    qs: options?.qs || {},
+    url: options?.url,
+  }
+
+  const updatedOptions = showGenuineRequestOptionsOnly
+    ? genuineRequestOptions
+    : { ...options }
 
   if (!showCredentials && hasPassword && hasBearer) {
     return formatJSon({
