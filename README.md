@@ -67,7 +67,7 @@ If your using TypeScript with Cypress, you can add type in your `tsconfig.json`
 
 ## More info
 
-- Read [Black box API testing with server logs](https://glebbahmutov.com/blog/api-testing-with-sever-logs/)
+- Read [Black box API testing with server logs](https://glebbahmutov.com/blog/api-testing-with-server-logs/)
 - Read [Capture all the logs](https://glebbahmutov.com/blog/capture-all-the-logs/) and [@bahmutov/all-logs][all-logs] module.
 - Read [You Should Test More Using APIs](https://glebbahmutov.com/blog/test-using-apis/)
 
