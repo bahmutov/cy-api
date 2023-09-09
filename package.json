@@ -51,7 +51,7 @@
     "cypress": ">=3"
   },
   "dependencies": {
-    "@types/common-tags": "1.8.1",
+    "@types/common-tags": "1.8.2",
     "common-tags": "1.8.2",
     "highlight.js": "11.4.0"
   },
