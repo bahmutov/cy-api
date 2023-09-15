@@ -1,71 +1,41 @@
 version: 2.1
 orbs:
   # https://github.com/cypress-io/circleci-orb
-  cypress: cypress-io/cypress@1
+  cypress: cypress-io/cypress@3
 
-executors:
-  with-ff:
-    docker:
-      - image: 'cypress/browsers:node18.12.0-chrome103-ff107'
+jobs:
+  node-18:
+    executor:
+      name: cypress/default
+      node-version: "18.16.1"
+    steps:
+      - cypress/run:
+          post-install: npm run build
+          start-command: npm start
 
 workflows:
   build:
     jobs:
-      # first, run a single job to install dependencies and Cypress
-      # and perform a few more small steps like linting
-      - cypress/install:
-          name: Install
-          build: npm run build
-          post-steps:
-            - run:
-                name: Show info 📺
-                command: npx cypress info
-            # catch accidental "it.only" tests
-            - run:
-                name: Catch accidental "it.only" 🖐
-                command: npm run stop-only
-
-      # reuse the workspace from the install job
       # to run end-to-end tests in Electron browser
-      - cypress/run:
+      - node-18:
           name: Electron test
-          requires:
-            - Install
-          install-command: echo 'Nothing to install in this job'
-          # to run tests, we need to start the web application
-          start: npm start
-          wait-on: 'http://localhost:3003'
-          no-workspace: true
-          store_artifacts: true
+          cypress-command: "npx wait-on@latest http://localhost:3003 && npx cypress run"
 
-      # reuse the workspace from the install job
       # to run end-to-end tests in Firefox browser
-      - cypress/run:
+      - node-18:
           name: Firefox test
-          executor: with-ff
-          requires:
-            - Install
-          install-command: echo 'Nothing to install in this job'
-          # to run tests, we need to start the web application
-          start: npm start
-          wait-on: 'http://localhost:3003'
-          # run tests using Firefox browser pre-installed in the executor image
-          browser: firefox
-          no-workspace: true
-          store_artifacts: true
+          install-browsers: true
+          cypress-command: "npx wait-on@latest http://localhost:3003 && npx cypress run --browser firefox"
 
       # wait for all jobs to finish and possible run NPM release
-      - cypress/run:
+      - node-18:
           name: NPM release
-          executor: with-ff
           requires:
-            - Install
             - Electron test
             - Firefox test
-          # nothing to install - cypress/install job does it
-          # and nothing to pass to the next job
+          post-install: npm install
+          start-command: echo 'Nothing to start in this job'
           install-command: echo 'Nothing to install in this job'
-          no-workspace: true
           # instead of "cypress run" do NPM release 😁
-          command: npm run semantic-release
+          cypress-command: npm run semantic-release
 
