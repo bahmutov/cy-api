@@ -370,6 +370,7 @@ const formatJSon = (jsonObject: object) => {
 
 const formatRequest = (options: Partial<Cypress.RequestOptions>) => {
   const showCredentials = Cypress.env('API_SHOW_CREDENTIALS')
+  const showGenuineRequestOptionsOnly = Cypress.env('API_SHOW_GENUINE_REQUEST_OPTIONS_ONLY')
   const auth = options?.auth as {
     username?: string
     password?: string
@@ -378,33 +379,50 @@ const formatRequest = (options: Partial<Cypress.RequestOptions>) => {
   const hasPassword = auth?.password
   const hasBearer = auth?.bearer
 
+  const genuineRequestOptions: Partial<Cypress.RequestOptions> = {
+    auth: options?.auth || {},
+    body: options?.body,
+    encoding: options?.encoding,
+    followRedirect: options?.followRedirect,
+    form: options?.form,
+    gzip: options?.gzip,
+    headers: options?.headers || {},
+    method: options?.method,
+    qs: options?.qs || {},
+    url: options?.url,
+  }
+
+  const updatedOptions = showGenuineRequestOptionsOnly
+    ? genuineRequestOptions
+    : { ...options }
+
   if (!showCredentials && hasPassword && hasBearer) {
     return formatJSon({
-      ...options,
+      ...updatedOptions,
       auth: {
-        ...options.auth,
+        ...updatedOptions.auth,
         bearer: '*****',
         password: '*****',
       },
     })
   } else if (!showCredentials && hasPassword) {
     return formatJSon({
-      ...options,
+      ...updatedOptions,
       auth: {
-        ...options.auth,
+        ...updatedOptions.auth,
         password: '*****',
       },
     })
   } else if (!showCredentials && hasBearer) {
     return formatJSon({
-      ...options,
+      ...updatedOptions,
       auth: {
-        ...options.auth,
+        ...updatedOptions.auth,
         bearer: '*****',
       },
     })
   }
-  return formatJSon(options)
+  return formatJSon(updatedOptions)
 }
 
 const formatResponse = (
