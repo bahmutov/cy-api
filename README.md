@@ -1,5 +1,7 @@
 # @bahmutov/cy-api
+
 [![renovate-app badge][renovate-badge]][renovate-app] [![CircleCI](https://circleci.com/gh/bahmutov/cy-api/tree/master.svg?style=svg&circle-token=b9f64878ead36e2da438a0563cc4566269aa452b)](https://circleci.com/gh/bahmutov/cy-api/tree/master) ![cypress version](https://img.shields.io/badge/cypress-12.17.3-brightgreen)
+
 > Cypress custom command "cy.api" for end-to-end API testing
 
 This command makes HTTP requests to external servers, then renders the input and output where the web application usually is in the Cypress Test Runner. If there are server-side logs using [@bahmutov/all-logs][all-logs], this command fetches them and renders too. Here is typical output:
@@ -29,20 +31,18 @@ This will add a new command `cy.api` for making API requests.
 
 ## Configuration
 
-| var env | default value | description |
-|---------|---------------|-------------|
-| CYPRESS_API_MESSAGES | true | Show and make call to api server logs |
-| CYPRESS_API_SHOW_CREDENTIALS | false | Show authentication password |
+| var env                      | default value | description                           |
+| ---------------------------- | ------------- | ------------------------------------- |
+| CYPRESS_API_MESSAGES         | true          | Show and make call to api server logs |
+| CYPRESS_API_SHOW_CREDENTIALS | false         | Show authentication password          |
 
 By default `cy.api` print response in the browser. To have the same behaviour as `cy.request` and use `cy.visit` normally, you need to desactivate `apiDisplayRequest` :
 
 ```js
 it('my test without displaying request', { apiDisplayRequest: false }, () => {
-    cy.api(
-      {
-        url: '/',
-      }
-    )
+  cy.api({
+    url: '/',
+  })
 })
 ```
 
@@ -52,18 +52,20 @@ If your using TypeScript with Cypress, you can add type in your `tsconfig.json`
 
 ```json
 {
-    "compilerOptions": {
-        "types": [
-            "cypress",
-            "@bahmutov/cy-api"
-        ]
-    }
+  "compilerOptions": {
+    "types": ["cypress", "@bahmutov/cy-api"]
+  }
 }
 ```
 
 ## Examples
 
 - [bahmutov/server-logs-example](https://github.com/bahmutov/server-logs-example)
+
+### Courses
+
+- 🎓 [Cypress Plugins](https://cypress.tips/courses/cypress-plugins/)
+  - [Lesson f2: Write an API test using the cy.api command](https://cypress.tips/courses/cypress-plugins/lessons/f2)
 
 ## More info
 
@@ -77,9 +79,9 @@ If your using TypeScript with Cypress, you can add type in your `tsconfig.json`
 
 Author: Gleb Bahmutov &lt;gleb.bahmutov@gmail.com&gt; &copy; 2019
 
-* [@bahmutov](https://twitter.com/bahmutov)
-* [glebbahmutov.com](https://glebbahmutov.com)
-* [blog](https://glebbahmutov.com/blog)
+- [@bahmutov](https://twitter.com/bahmutov)
+- [glebbahmutov.com](https://glebbahmutov.com)
+- [blog](https://glebbahmutov.com/blog)
 
 License: MIT - do anything with the code, but don't blame me if it does not work.
 
