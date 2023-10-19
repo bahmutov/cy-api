@@ -6,7 +6,8 @@ orbs:
 executors:
   with-ff:
     docker:
-      - image: 'cypress/browsers:node18.12.0-chrome103-ff107'
+      # https://github.com/cypress-io/cypress-docker-images
+      - image: 'cypress/browsers:node-20.6.1-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1'
 
 workflows:
   build:
@@ -68,4 +69,3 @@ workflows:
           no-workspace: true
           # instead of "cypress run" do NPM release 😁
           command: npm run semantic-release
-
