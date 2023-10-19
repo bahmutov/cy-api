@@ -7,11 +7,13 @@ const express = require('express')
 const app = express()
 const port = 3003
 
+app.use(express.json())
+
 if (global.messages) {
   require('@bahmutov/all-logs/middleware/express')(app)
 }
 
-app.use(express.static('server-public'));
+app.use(express.static('server-public'))
 
 const answer = 'Hello World!'
 
@@ -43,14 +45,27 @@ app.get('/json', (req, res) => {
 
 // https://github.com/bahmutov/cy-api/issues/156
 app.get('/json-white-space', (req, res) => {
-  const answerJSON =  { "forwardTo": " " }
+  const answerJSON = { forwardTo: ' ' }
   res.send(answerJSON)
 })
 
 app.get('/xml', (req, res) => {
-  const answerXML = "<xml>XML</xml>"
-  res.set('Content-Type', 'text/xml');
+  const answerXML = '<xml>XML</xml>'
+  res.set('Content-Type', 'text/xml')
   res.send(answerXML)
+})
+
+app.get('/random-number', (req, res) => {
+  const n = Math.ceil(Math.random() * 10)
+  console.log('returning a random number %d', n)
+  res.send({ n })
+})
+
+app.get('/sum', (req, res) => {
+  console.log('summing', req.body)
+  const sum = req.body.a + req.body.b
+  console.log('returning sum %d', sum)
+  res.send({ sum })
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
