@@ -295,13 +295,17 @@ const printResponse = (
             container.innerHTML +=
               '\n<pre class="cy-api-logs-messages">' +
               messages
-                .map(
-                  (m) =>
-                    `<div class="${normalize(m.type)} ${normalize(
-                      m.type,
-                      m.namespace,
-                    )}">${m.type} ${m.namespace}: ${m.message}</div>`,
-                )
+                .map((m) => {
+                  const s =
+                    typeof m.message === 'string'
+                      ? m.message
+                      : JSON.stringify(m.message)
+                  const html = `<div class="${normalize(m.type)} ${normalize(
+                    m.type,
+                    m.namespace,
+                  )}">${m.type} ${m.namespace}: ${s}</div>`
+                  return html
+                })
                 .join('') +
               '\n</pre></div>'
           }

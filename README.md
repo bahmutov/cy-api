@@ -76,6 +76,13 @@ If your using TypeScript with Cypress, you can add type in your `tsconfig.json`
 
 [all-logs]: https://github.com/bahmutov/all-logs
 
+## Development
+
+- install all dependencies using `npm install`
+- start watching and compiling the TS source using `npm run build:watch`
+- from another terminal launch the local server and open Cypress using `npm run dev`
+- open the desired Cypress spec file
+
 ### Small print
 
 Author: Gleb Bahmutov &lt;gleb.bahmutov@gmail.com&gt; &copy; 2019
