@@ -19,3 +19,25 @@ it('shows the full message from the server logs', () => {
     .find('.console.console-log')
     .should('read', ['console log: POST /json', 'console log: {"name":"Jane"}'])
 })
+
+it('serializes multiple arguments', () => {
+  cy.api(
+    {
+      url: '/sum',
+      body: {
+        a: 10,
+        b: -5,
+      },
+    },
+    'sum',
+  )
+    .its('body.sum')
+    .should('equal', 5)
+
+  cy.get('.cy-api-logs-messages')
+    .find('.console.console-log')
+    .should('read', [
+      'console log: summing { a: 10, b: -5 }',
+      'console log: returning sum 5',
+    ])
+})
