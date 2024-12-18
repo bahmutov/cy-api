@@ -15,4 +15,7 @@ it('shows the full message from the server logs', () => {
     .should('deep.equal', ['POST /json', { name: 'Jane' }])
 
   cy.get('.cy-api-logs-messages').should('not.include.text', '[object Object]')
+  cy.get('.cy-api-logs-messages')
+    .find('.console.console-log')
+    .should('read', ['console log: POST /json', 'console log: {"name":"Jane"}'])
 })
