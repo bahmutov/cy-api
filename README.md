@@ -1,6 +1,6 @@
 # @bahmutov/cy-api
 
-[![renovate-app badge][renovate-badge]][renovate-app] [![CircleCI](https://circleci.com/gh/bahmutov/cy-api/tree/master.svg?style=svg&circle-token=b9f64878ead36e2da438a0563cc4566269aa452b)](https://circleci.com/gh/bahmutov/cy-api/tree/master) ![cypress version](https://img.shields.io/badge/cypress-13.3.1-brightgreen)
+[![renovate-app badge][renovate-badge]][renovate-app] [![CircleCI](https://circleci.com/gh/bahmutov/cy-api/tree/master.svg?style=svg&circle-token=b9f64878ead36e2da438a0563cc4566269aa452b)](https://circleci.com/gh/bahmutov/cy-api/tree/master) ![cypress version](https://img.shields.io/badge/cypress-13.16.0-brightgreen)
 
 > Cypress custom command "cy.api" for end-to-end API testing
 
