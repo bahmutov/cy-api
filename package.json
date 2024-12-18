@@ -8,6 +8,7 @@
     "/dist/*"
   ],
   "scripts": {
+    "badges": "npx -p dependency-version-badge update-badge cypress",
     "test": "cypress run",
     "cy:open": "cypress open",
     "start": "node -r @bahmutov/all-logs ./server",
