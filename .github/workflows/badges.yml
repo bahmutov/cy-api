@@ -1,14 +1,5 @@
 name: badges
 on:
-  push:
-    # update README badge only if the README file changes
-    # or if the package.json file changes, or this file changes
-    branches:
-      - master
-    paths:
-      - README.md
-      - package.json
-      - .github/workflows/badges.yml
   schedule:
     # update badges every night
     # because we have a few badges that are linked
