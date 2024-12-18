@@ -1,16 +1,14 @@
 {
-    "compilerOptions": {
-        "outDir": "dist",
-        "declaration": true,
-        "allowJs": true,
-        "target": "es5",
-        "strict": true
-    },
-    "include": [
-        "./src/**/*"
-    ],
-    "exclude": [
-        "node_modules",
-        "dist"
-    ]
+  "compilerOptions": {
+    "outDir": "dist",
+    "declaration": true,
+    "allowJs": true,
+    "target": "es2021",
+    "strict": true,
+    "types": ["cypress", "node"],
+    "moduleResolution": "node",
+    "skipLibCheck": true
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
