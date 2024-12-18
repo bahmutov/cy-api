@@ -1,0 +1,56 @@
+name: ci
+on: push
+jobs:
+  install-and-test:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@v4
+
+      - name: Install everything 📦
+        # https://github.com/cypress-io/github-action
+        uses: cypress-io/github-action@v6
+        with:
+          runTests: false
+
+      # make sure we did not leave "it.only" accidentally
+      # https://github.com/bahmutov/stop-only
+      - name: Catch "it.only" 🫴
+        run: npm run stop-only
+
+      - name: Run tests 🧪
+        # https://github.com/cypress-io/github-action
+        uses: cypress-io/github-action@v6
+        with:
+          install: true
+          build: npm run build
+          start: npm start
+
+  release:
+    needs: [install-and-test]
+    runs-on: ubuntu-24.04
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Checkout 🛎
+        uses: actions/checkout@v4
+
+      - name: Install everything 📦
+        # https://github.com/cypress-io/github-action
+        uses: cypress-io/github-action@v6
+        with:
+          runTests: false
+
+      - name: Build dist 🏗
+        run: npm run build
+
+      - name: Semantic Release 🚀
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+          branch: main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
