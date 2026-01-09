@@ -9,10 +9,10 @@ on:
 jobs:
   badges:
     name: Badges
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Update version badges 🏷
         run: npm run badges
