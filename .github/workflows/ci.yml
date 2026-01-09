@@ -1,5 +1,6 @@
 name: ci
 on: push
+
 jobs:
   install-and-test:
     runs-on: ubuntu-latest
@@ -28,6 +29,10 @@ jobs:
 
   release:
     needs: [install-and-test]
+    # trusted publisher
+    permissions:
+      id-token: write # Required for OIDC
+      contents: write
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
     steps:
