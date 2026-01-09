@@ -415,6 +415,10 @@ const formatResponse = (
   body: object,
   headers: { [key: string]: string | string[] },
 ) => {
+  if (body === undefined || body === null) {
+    return ''
+  }
+
   if (headers?.['content-type']?.includes('application/json')) {
     return formatJSon(body)
   } else {
