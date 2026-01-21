@@ -1,12 +1,17 @@
 name: ci
 on: push
 
+# trusted publisher
+permissions:
+  id-token: write # Required for OIDC
+  contents: write
+
 jobs:
   install-and-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Install everything 📦
         # https://github.com/cypress-io/github-action
@@ -41,7 +46,7 @@ jobs:
           node-version: 24
 
       - name: Checkout 🛎
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Install everything 📦
         # https://github.com/cypress-io/github-action
