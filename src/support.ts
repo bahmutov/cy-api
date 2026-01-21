@@ -419,7 +419,18 @@ const formatResponse = (
     return ''
   }
 
-  if (headers?.['content-type']?.includes('application/json')) {
+  const rawContentType = headers?.['content-type'];
+
+  const contentType = Array.isArray(rawContentType)
+    ? rawContentType.join(';').toLowerCase()
+    : (rawContentType || '').toLowerCase();
+
+  const isJson =
+      contentType.includes('application/json') ||
+      contentType.includes('+json') ||
+      contentType.includes('json');
+
+  if (isJson) {
     return formatJSon(body)
   } else {
     return body
