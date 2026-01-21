@@ -10,6 +10,10 @@ jobs:
   install-and-test:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
       - name: Checkout 🛎
         uses: actions/checkout@v6
 
