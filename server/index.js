@@ -59,6 +59,14 @@ app.put('/json', (req, res) => {
   res.send(body)
 })
 
+app.post('/json-problem', (req, res) => {
+  console.log('application/problem+json')
+  res.set('Content-Type', 'application/problem+json')
+  res.send({
+    foo: 'bar',
+  })
+})
+
 // https://github.com/bahmutov/cy-api/issues/156
 app.get('/json-white-space', (req, res) => {
   const answerJSON = { forwardTo: ' ' }
