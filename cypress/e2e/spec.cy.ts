@@ -2,6 +2,10 @@
 /// <reference path="../../dist/types.d.ts" />
 
 describe('cy.api', () => {
+  beforeEach(() => {
+    Cypress.expose('API_SHOW_CREDENTIALS', false)
+  })
+
   it('calls API method', () => {
     cy.api({
       url: '/',
@@ -79,54 +83,41 @@ describe('cy.api', () => {
     })
   })
 
-  it(
-    'yields result that has log messages with API_MESSAGES true',
-    {
-      env: {
-        API_MESSAGES: true,
-      },
-    },
-    () => {
-      cy.api(
-        {
-          url: '/',
-        },
-        'hello world',
-      ).then(({ messages }) => {
-        console.table(messages)
-        // filter for "console.log" messages
-        const logs = Cypress._.filter(messages, {
-          type: 'console',
-          namespace: 'log',
-        })
-        expect(logs, '1 console.log message').to.have.length(1)
-        expect(logs[0]).to.deep.include({
-          type: 'console',
-          namespace: 'log',
-          message: 'processing GET /',
-        })
-      })
-    },
-  )
+  it('yields result that has log messages with API_MESSAGES true', () => {
+    Cypress.expose('API_SHOW_CREDENTIALS', true)
 
-  it(
-    'no log messages with API_MESSAGES false',
-    {
-      env: {
-        API_MESSAGES: false,
+    cy.api(
+      {
+        url: '/',
       },
-    },
-    () => {
-      cy.api(
-        {
-          url: '/',
-        },
-        'hello world',
-      ).then(({ messages }) => {
-        expect(messages).to.have.length(0)
+      'hello world',
+    ).then(({ messages }) => {
+      console.table(messages)
+      // filter for "console.log" messages
+      const logs = Cypress._.filter(messages, {
+        type: 'console',
+        namespace: 'log',
       })
-    },
-  )
+      expect(logs, '1 console.log message').to.have.length(1)
+      expect(logs[0]).to.deep.include({
+        type: 'console',
+        namespace: 'log',
+        message: 'processing GET /',
+      })
+    })
+  })
+
+  it('no log messages with API_MESSAGES false', () => {
+    Cypress.expose('API_MESSAGES', false)
+    cy.api(
+      {
+        url: '/',
+      },
+      'hello world',
+    ).then(({ messages }) => {
+      expect(messages).to.have.length(0)
+    })
+  })
 
   it('mask credentials bearer', () => {
     cy.api({
