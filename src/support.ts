@@ -39,12 +39,13 @@ Cypress.Commands.add(
   'api',
   (options: Partial<Cypress.RequestOptions>, name = 'api') => {
     const apiOptions = initApiOptions()
-    const hasApiMessages = Cypress.env('API_MESSAGES') === false ? false : true
+    const hasApiMessages =
+      Cypress.expose('API_MESSAGES') === false ? false : true
     let normalizedTypes: string[] = []
     let normalizedNamespaces: string[] = []
     var { container, win, doc } = getContainer()
     const messagesEndpoint = get(
-      Cypress.env(),
+      Cypress.expose(),
       'cyApi.messages',
       '/__messages__',
     )
@@ -373,7 +374,7 @@ const formatJSon = (jsonObject: object) => {
 }
 
 const formatRequest = (options: Partial<Cypress.RequestOptions>) => {
-  const showCredentials = Cypress.env('API_SHOW_CREDENTIALS')
+  const showCredentials = Cypress.expose('API_SHOW_CREDENTIALS')
   const auth = options?.auth as {
     username?: string
     password?: string
@@ -419,16 +420,16 @@ const formatResponse = (
     return ''
   }
 
-  const rawContentType = headers?.['content-type'];
+  const rawContentType = headers?.['content-type']
 
   const contentType = Array.isArray(rawContentType)
     ? rawContentType.join(';').toLowerCase()
-    : (rawContentType || '').toLowerCase();
+    : (rawContentType || '').toLowerCase()
 
   const isJson =
-      contentType.includes('application/json') ||
-      contentType.includes('+json') ||
-      contentType.includes('json');
+    contentType.includes('application/json') ||
+    contentType.includes('+json') ||
+    contentType.includes('json')
 
   if (isJson) {
     return formatJSon(body)

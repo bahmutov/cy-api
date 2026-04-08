@@ -31,7 +31,7 @@ This will add a new command `cy.api` for making API requests.
 
 ## Configuration
 
-| var env                      | default value | description                           |
+| var expose                   | default value | description                           |
 | ---------------------------- | ------------- | ------------------------------------- |
 | CYPRESS_API_MESSAGES         | true          | Show and make call to api server logs |
 | CYPRESS_API_SHOW_CREDENTIALS | false         | Show authentication password          |
