@@ -1,6 +1,6 @@
 # @bahmutov/cy-api
 
-[![renovate-app badge][renovate-badge]][renovate-app] ![cypress version](https://img.shields.io/badge/cypress-15.14.1-brightgreen)
+[![renovate-app badge][renovate-badge]][renovate-app] ![cypress version](https://img.shields.io/badge/cypress-15.14.2-brightgreen)
 
 > Cypress custom command "cy.api" for end-to-end API testing
 
